@@ -1,8 +1,19 @@
 /* ==========================================
-   WayV(威神V) 취향표
+   웨이션브이(WayV) 취향표
 ========================================== */
 
+/* 멤버 순서: 쿤, 텐, 윈윈, 샤오쥔, 헨드리, 양양 */
 const members = [
+    "쿤",
+    "텐",
+    "윈",
+    "샤",
+    "헨",
+    "양"
+];
+
+/* 멤버 풀네임 (사진 alt 텍스트 등에 사용) */
+const fullNames = [
     "쿤",
     "텐",
     "윈윈",
@@ -11,19 +22,20 @@ const members = [
     "양양"
 ];
 
-/* 멤버별 본인 이니셜 (본인조합, 행/열 숨기기 문구에 사용)
-   * 평소 쓰시는 애칭이 따로 있다면 이 배열 값만 바꾸면
-   * 아래 pairNames(커플명 표) 전체에 자동으로 반영돼요. */
+/* 멤버별 본인 이니셜 (본인조합, 행/열 숨기기 문구에 사용) */
 const ownInitials = ["쿤", "텐", "윈", "샤", "헨", "양"];
+
+/* 윈윈은 탈퇴 멤버라 체크박스로 6인/5인 구성을 전환할 수 있다 */
+const WINWIN_INDEX = members.indexOf("윈");
 
 /* 멤버별 기본 아바타 색상 (사진 로드 실패 시 대체용) */
 const memberColors = [
+    "#f1c6b4",
+    "#e0825a",
+    "#c25225",
     "#d85b29",
-    "#e8935c",
-    "#f2b880",
-    "#c0431a",
-    "#a67c52",
-    "#8b3a1f"
+    "#b84d23",
+    "#e48c69"
 ];
 
 /* 멤버별 기본 프로필 사진 (members 배열과 순서 동일) */
@@ -37,25 +49,13 @@ const defaultPhotos = [
 ];
 
 /*
- * 표에 표시할 커플명.
- * [행 멤버][열 멤버] 순서.
- * ownInitials 배열을 그대로 조합해서 만든 값이라, 실제 팬덤에서
- * 쓰시는 애칭과 다를 수 있어요. ownInitials만 원하는 값으로 바꾸면
- * 이 표 전체가 자동으로 맞춰지니 필요하면 그렇게 수정해 주세요.
+ * 표에 표시할 커플명. [행 멤버][열 멤버] 순서.
+ * 대각선(본인조합)을 포함해 각 멤버 이니셜 두 개를 그대로 붙여서 만든다.
+ * (예: 쿤+텐 -> "쿤텐", 텐+쿤 -> "텐쿤")
  */
-const pairNames = [
-    ["쿤쿤", "쿤텐", "쿤윈", "쿤샤", "쿤헨", "쿤양"],
-    ["텐쿤", "텐텐", "텐윈", "텐샤", "텐헨", "텐양"],
-    ["윈쿤", "윈텐", "윈윈", "윈샤", "윈헨", "윈양"],
-    ["샤쿤", "샤텐", "샤윈", "샤샤", "샤헨", "샤양"],
-    ["헨쿤", "헨텐", "헨윈", "헨샤", "헨헨", "헨양"],
-    ["양쿤", "양텐", "양윈", "양샤", "양헨", "양양"]
-];
-
-/* 윈윈은 탈퇴 멤버라 체크박스로 6인/5인 구성을 전환할 수 있게 한다. */
-const WINWIN_INDEX = members.indexOf("윈윈");
-const WINWIN_KEY = "wayv-include-winwin";
-let includeWinwin = localStorage.getItem(WINWIN_KEY) !== "0";
+const pairNames = members.map((_, rowIndex) =>
+    members.map((_, colIndex) => ownInitials[rowIndex] + ownInitials[colIndex])
+);
 
 const options = [
     { name: "OTP",      color: "#f7cde0" },
@@ -87,8 +87,8 @@ function resetCustomColors() {
     localStorage.removeItem(CUSTOM_COLOR_KEY);
 }
 
-const STORAGE_KEY = "wayv-wit-rps";
-const LR_STORAGE_KEY = "wayv-lr-rps";
+const STORAGE_KEY = "wayv-chart-rps";
+const LR_STORAGE_KEY = "wayv-chart-lr";
 const LR_CELL_COUNT = 12;
 
 /* 행/열 개별 숨기기 상태 (멤버 인덱스 기준, rows/cols 따로 관리) */
@@ -109,6 +109,11 @@ function saveHiddenState() {
 const SELF_PAIR_KEY = "wayv-include-selfpair";
 let includeSelfPair = localStorage.getItem(SELF_PAIR_KEY) !== "0";
 
+/* 윈윈 포함(6인 구성) 여부 - 체크박스로 켜고 끔.
+   기본값은 켜짐(6인 구성)이라, 꺼본 적 없는 사용자는 "0"이 저장돼 있지 않다. */
+const WINWIN_KEY = "wayv-include-winwin";
+let includeWinwin = localStorage.getItem(WINWIN_KEY) !== "0";
+
 /* 대각선(본인×본인) 칸을 표시할지 여부에 따라 실제로 화면/이미지에 그릴 텍스트를 반환한다.
    토글이 꺼져 있으면 "-"를 보여준다. */
 function getDisplayPairName(rowIndex, colIndex) {
@@ -118,10 +123,11 @@ function getDisplayPairName(rowIndex, colIndex) {
     return pairNames[rowIndex][colIndex];
 }
 
-/* 윈윈 포함 여부에 따라 실제로 화면에 표시할 멤버 인덱스 목록을 반환한다.
-   행/열 숨기기(hiddenRows/hiddenCols)와는 별개로, 이 필터가 항상 먼저 적용된다. */
-function getActiveMemberIndexes() {
-    return members.map((_, i) => i).filter(i => includeWinwin || i !== WINWIN_INDEX);
+/* 윈윈 포함 여부 + 행/열 개별 숨기기를 모두 반영한, 실제로 화면에 보여줄 멤버 인덱스 목록 */
+function getVisibleIndexes(hiddenSet) {
+    return members
+        .map((_, i) => i)
+        .filter(i => (includeWinwin || i !== WINWIN_INDEX) && !hiddenSet.has(i));
 }
 
 const table = document.getElementById("chartTable");
@@ -161,12 +167,7 @@ const scaleWrap = document.getElementById("scaleWrap");
 /* CSS의 @media (max-width: 768px)과 동일한 기준.
    이 폭 이하에서는 JS로 축소하지 않고, 반응형 레이아웃을 그대로 사용한다. */
 const MOBILE_BREAKPOINT = 768;
-const RPS_CAPTURE_WIDTH = 1100;
-const LR_CAPTURE_WIDTH = 1100;
-
-function getCaptureWidth() {
-    return currentTab === "rps" ? RPS_CAPTURE_WIDTH : LR_CAPTURE_WIDTH;
-}
+const DESKTOP_CAPTURE_WIDTH = 1100;
 
 let currentTarget = null; // { type: "cell", td } | { type: "row", index } | { type: "col", index }
 let currentTab = "rps";
@@ -258,7 +259,7 @@ if (selfPairToggle) {
 }
 
 /* ==========================================
-   윈윈 포함(6인) 토글
+   윈윈 포함(6인/5인 구성) 토글
 ========================================== */
 
 if (winwinToggle) {
@@ -269,7 +270,6 @@ if (winwinToggle) {
         localStorage.setItem(WINWIN_KEY, includeWinwin ? "1" : "0");
         createTable();
         createLrGrid();
-        fitCaptureArea();
     });
 }
 
@@ -307,15 +307,14 @@ tabRps.addEventListener("click", () => switchTab("rps"));
 tabLr.addEventListener("click", () => switchTab("lr"));
 
 /* ==========================================
-   편페스 취향표 - 표 생성
+   커플 취향표 - 표 생성
 ========================================== */
 
 function createTable() {
     table.innerHTML = "";
 
-    const activeIndexes = getActiveMemberIndexes();
-    const visibleColIndexes = activeIndexes.filter(i => !hiddenCols.has(i));
-    const visibleRowIndexes = activeIndexes.filter(i => !hiddenRows.has(i));
+    const visibleColIndexes = getVisibleIndexes(hiddenCols);
+    const visibleRowIndexes = getVisibleIndexes(hiddenRows);
 
     const head = document.createElement("tr");
     const empty = document.createElement("th");
@@ -378,7 +377,7 @@ function createTable() {
 }
 
 /* ==========================================
-   편페스 취향표 - 이전/이후 (실행 취소)
+   커플 취향표 - 이전/이후 (실행 취소)
 ========================================== */
 
 function pushHistory() {
@@ -607,9 +606,11 @@ function defaultAvatar(name, color) {
 function createLrGrid() {
     lrGrid.innerHTML = "";
 
-    members.forEach((member, index) => {
-        if (!includeWinwin && index === WINWIN_INDEX) return;
+    const visibleIndexes = getVisibleIndexes(new Set());
+    lrGrid.classList.toggle("count-5", visibleIndexes.length === 5);
 
+    visibleIndexes.forEach(index => {
+        const member = members[index];
         const row = document.createElement("div");
         row.className = "lr-row";
 
@@ -620,7 +621,7 @@ function createLrGrid() {
 
         const img = document.createElement("img");
         img.src = lrData.photos[index] || defaultPhotos[index];
-        img.alt = member;
+        img.alt = fullNames[index];
         img.onerror = () => {
             img.onerror = null;
             img.src = defaultAvatar(member, memberColors[index % memberColors.length]);
@@ -802,11 +803,15 @@ saveBtn.addEventListener("click", async () => {
     area.classList.add("capturing");
 
     /* 화면(특히 모바일)에 적용돼 있던 축소/반응형 스타일을 잠시 걷어내고,
-       항상 PC 버전과 동일한 레이아웃(탭별 고정 폭)으로 저장되도록 한다. */
+       항상 PC 버전과 동일한 1100px 레이아웃으로 저장되도록 한다.
+       html2canvas의 windowWidth 옵션만으로는 일부 모바일 브라우저에서
+       미디어쿼리가 실제 화면 폭 기준으로 재평가되는 경우가 있어서,
+       body에 force-desktop-capture 클래스를 추가로 붙여 !important로
+       모바일 스타일을 덮어써서 어떤 기기에서 저장하든 동일한 비율/레이아웃이
+       되도록, 표가 잘리지 않도록 이중으로 보장한다. */
     const prevTransform = area.style.transform;
-    const prevAreaWidth = area.style.width;
     area.style.transform = "none";
-    area.style.width = `${getCaptureWidth()}px`;
+    document.body.classList.add("force-desktop-capture");
 
     try {
         const canvas = await html2canvas(area, {
@@ -814,10 +819,8 @@ saveBtn.addEventListener("click", async () => {
             scale: 4,
             useCORS: true,
             logging: false,
-            width: Math.max(getCaptureWidth(), area.scrollWidth),
-            height: area.scrollHeight,
-            windowWidth: Math.max(getCaptureWidth(), area.scrollWidth),
-            windowHeight: area.scrollHeight,
+            windowWidth: DESKTOP_CAPTURE_WIDTH,
+            windowHeight: Math.max(area.scrollHeight, 1600),
             /*
              * html2canvas는 textarea 안의 줄바꿈/자동 줄바꿈을 제대로
              * 그리지 못해서(한 줄로만 렌더링되며 잘려 보임), 캡처용으로
@@ -825,6 +828,7 @@ saveBtn.addEventListener("click", async () => {
              * 실제 화면의 textarea(입력 가능 상태)는 건드리지 않는다.
              */
             onclone: (clonedDoc) => {
+                clonedDoc.body.classList.add("force-desktop-capture");
                 clonedDoc.querySelectorAll(".lr-text").forEach((ta) => {
                     const div = clonedDoc.createElement("div");
                     div.className = "lr-text";
@@ -859,7 +863,7 @@ saveBtn.addEventListener("click", async () => {
         previewImage.src = currentBlobUrl;
         saveModal.classList.remove("hidden");
 
-        const fileLabel = currentTab === "rps" ? "웨페스_취향표" : "공수_취향표";
+        const fileLabel = currentTab === "rps" ? "커플_취향표" : "공수_취향표";
 
         const link = document.createElement("a");
         link.href = currentBlobUrl;
@@ -873,7 +877,7 @@ saveBtn.addEventListener("click", async () => {
     } finally {
         area.classList.remove("capturing");
         area.style.transform = prevTransform;
-        area.style.width = prevAreaWidth;
+        document.body.classList.remove("force-desktop-capture");
         buttonWrap.style.display = "flex";
         tabWrap.style.display = "flex";
         dateToggleWrap.style.display = "flex";
@@ -920,13 +924,12 @@ function fitCaptureArea() {
         return;
     }
 
-    const captureWidth = getCaptureWidth();
-    const scale = Math.min(1.2, screenWidth / captureWidth);
+    const scale = Math.min(1, screenWidth / DESKTOP_CAPTURE_WIDTH);
 
     area.style.transformOrigin = "top left";
     area.style.transform = `scale(${scale})`;
 
-    wrap.style.width = `${captureWidth * scale}px`;
+    wrap.style.width = `${DESKTOP_CAPTURE_WIDTH * scale}px`;
     wrap.style.height = `${area.scrollHeight * scale}px`;
 }
 
