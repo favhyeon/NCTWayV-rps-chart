@@ -654,7 +654,6 @@ function createLrGrid() {
     lrGrid.innerHTML = "";
 
     const visibleIndexes = getVisibleIndexes(new Set());
-    lrGrid.classList.toggle("count-5", visibleIndexes.length === 5);
 
     visibleIndexes.forEach(index => {
         const member = members[index];

@@ -50,7 +50,7 @@ body {
 .tab-wrap {
     display: flex;
     gap: 8px;
-    background: #e6efdc;
+    background: #f9e6df;
     padding: 6px;
     border-radius: 999px;
     margin-bottom: 18px;
@@ -63,17 +63,17 @@ body {
     border-radius: 999px;
     font-size: 15px;
     font-weight: 800;
-    color: #72b91b;
+    color: #d85b29;
     cursor: pointer;
     transition: .2s;
 }
 
 .tab-btn:hover {
-    color: #578f12;
+    color: #ad4921;
 }
 
 .tab-btn.active {
-    background: #b7e67d;
+    background: #edb59f;
     color: #1a1a1a;
 }
 
@@ -93,7 +93,7 @@ h1 {
     font-size: 34px;
     line-height: 1.15;
     font-weight: 900;
-    color: #578f12;
+    color: #ad4921;
     margin: 0 0 22px;
 }
 
@@ -111,7 +111,7 @@ h1 {
     margin-left: 10px;
     font-size: 16px;
     font-weight: 700;
-    color: #72b91b;
+    color: #d85b29;
     vertical-align: middle;
 }
 
@@ -137,8 +137,8 @@ h1 {
     height: 32px;
     border-radius: 50%;
     border: none;
-    background: #e6efdc;
-    color: #578f12;
+    background: #f9e6df;
+    color: #ad4921;
     font-size: 13px;
     display: flex;
     align-items: center;
@@ -148,7 +148,7 @@ h1 {
 }
 
 .nav-btn:hover:not(:disabled) {
-    background: #ddeacd;
+    background: #f5d6ca;
     transform: none;
 }
 
@@ -168,7 +168,7 @@ table {
 }
 
 th {
-    background: #b7e67d;
+    background: #edb59f;
     color: #1a1a1a;
     height: 68px;
     font-size: 23px;
@@ -186,7 +186,7 @@ th:first-child {
 }
 
 .clickable-header:hover {
-    background: #9fde52;
+    background: #e2845e;
 }
 
 td {
@@ -247,7 +247,9 @@ td:hover {
 .lr-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(4, auto);
+    /* 5인: 3행(왼3/오2), 6인: 3행(왼3/오3) - 항상 3행으로 고정해
+       왼쪽부터 위→아래로 채우고, 넘치는 인원이 오른쪽 열로 이어지게 한다. */
+    grid-template-rows: repeat(3, auto);
     grid-auto-flow: column;
     gap: 46px 50px;
 }
@@ -266,8 +268,8 @@ td:hover {
     overflow: hidden;
     flex: 0 0 auto;
     cursor: pointer;
-    border: 4px solid #e6efdc;
-    background: #e6efdc;
+    border: 4px solid #f9e6df;
+    background: #f9e6df;
 }
 
 .lr-avatar img {
@@ -311,7 +313,7 @@ td:hover {
 .lr-label-r {
     font-size: 17px;
     font-weight: 800;
-    color: #578f12;
+    color: #ad4921;
     flex: 0 0 auto;
 }
 
@@ -319,7 +321,7 @@ td:hover {
     flex: 1;
     display: flex;
     height: 32px;
-    border: 2px solid #cedfb9;
+    border: 2px solid #f1c6b4;
     border-radius: 8px;
     overflow: hidden;
 }
@@ -328,7 +330,7 @@ td:hover {
     flex: 1;
     height: 100%;
     background: #fff;
-    border-right: 1px solid #e6eedd;
+    border-right: 1px solid #f9e6df;
     cursor: pointer;
     transition: .1s;
 }
@@ -338,11 +340,11 @@ td:hover {
 }
 
 .lr-cell:hover {
-    background: #f0f8e8;
+    background: #fdf7f4;
 }
 
 .lr-cell.filled {
-    background: #b7e67d;
+    background: #edb59f;
 }
 
 .lr-text-wrap {
@@ -354,7 +356,7 @@ td:hover {
     min-height: 150px;
     resize: none;
     overflow: hidden;
-    border: 2px solid #cedfb9;
+    border: 2px solid #f1c6b4;
     border-radius: 10px;
     padding: 12px 14px 26px;
     font-size: 17px;
@@ -366,11 +368,11 @@ td:hover {
 }
 
 .lr-text:focus {
-    border-color: #578f12;
+    border-color: #ad4921;
 }
 
 .lr-text::placeholder {
-    color: #9cb181;
+    color: #bc775b;
 }
 
 .lr-char-count {
@@ -378,7 +380,7 @@ td:hover {
     right: 12px;
     bottom: 8px;
     font-size: 12px;
-    color: #9cb181;
+    color: #bc775b;
     font-weight: 600;
     pointer-events: none;
 }
@@ -421,12 +423,12 @@ button:hover {
 }
 
 #saveBtn {
-    background: #b7e67d;
+    background: #edb59f;
     color: #1a1a1a;
 }
 
 #saveBtn:hover {
-    background: #9fde52;
+    background: #e2845e;
 }
 
 #resetBtn {
@@ -467,7 +469,7 @@ button:hover {
 .date-toggle input {
     width: 17px;
     height: 17px;
-    accent-color: #578f12;
+    accent-color: #ad4921;
     cursor: pointer;
 }
 
@@ -637,7 +639,7 @@ button:hover {
 }
 
 .reset-colors-link:hover {
-    color: #578f12;
+    color: #ad4921;
 }
 
 .modal-extra {
@@ -663,7 +665,7 @@ button:hover {
 .hide-toggle input {
     width: 16px;
     height: 16px;
-    accent-color: #578f12;
+    accent-color: #ad4921;
     cursor: pointer;
 }
 
