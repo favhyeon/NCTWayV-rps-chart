@@ -26,7 +26,7 @@ const fullNames = [
 const ownInitials = ["쿤", "텐", "윈", "샤", "헨", "양"];
 
 /* 윈윈은 탈퇴 멤버라 체크박스로 6인/5인 구성을 전환할 수 있다 */
-const WINWIN_INDEX = members.indexOf("윈");
+const WINWIN_INDEX = members.indexOf("윈윈");
 
 /* 멤버별 기본 아바타 색상 (사진 로드 실패 시 대체용) */
 const memberColors = [
