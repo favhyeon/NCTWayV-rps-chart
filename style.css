@@ -1,20 +1,4 @@
 /* ===========================
-   색상 팔레트
-   메인색(#d85b29)은 assets/og.png의 배경색을 그대로 추출한 값입니다.
-=========================== */
-
-:root {
-    --main: #d85b29;        /* og.png 배경색 그대로 (표 헤더 / 탭 / 버튼 등 메인색) */
-    --main-dark: #b84d23;   /* 제목, 아이콘 등 진한 텍스트용 */
-    --main-hover: #c25225;  /* 메인색 요소의 hover 상태 */
-    --tint-100: #fbefea;    /* 아주 옅은 배경 (탭 배경, 아바타 배경 등) */
-    --tint-200: #f7ded4;    /* 옅은 보더 */
-    --tint-300: #f1c6b4;    /* 보더 */
-    --muted: #c97a52;       /* 비활성 텍스트 (탭 비활성 글자, 플레이스홀더) */
-    --date-text: #e0825a;   /* 날짜 텍스트 */
-}
-
-/* ===========================
    기본 설정
 =========================== */
 
@@ -66,7 +50,7 @@ body {
 .tab-wrap {
     display: flex;
     gap: 8px;
-    background: var(--tint-100);
+    background: #e6efdc;
     padding: 6px;
     border-radius: 999px;
     margin-bottom: 18px;
@@ -79,18 +63,18 @@ body {
     border-radius: 999px;
     font-size: 15px;
     font-weight: 800;
-    color: var(--muted);
+    color: #72b91b;
     cursor: pointer;
     transition: .2s;
 }
 
 .tab-btn:hover {
-    color: var(--main-hover);
+    color: #578f12;
 }
 
 .tab-btn.active {
-    background: var(--main);
-    color: #ffffff;
+    background: #b7e67d;
+    color: #1a1a1a;
 }
 
 /* ===========================
@@ -101,7 +85,7 @@ body {
     display: block;
     width: 300px;
     height: auto;
-    margin: 0 auto 4px;
+    margin: 0 auto 44px;
 }
 
 h1 {
@@ -109,8 +93,8 @@ h1 {
     font-size: 34px;
     line-height: 1.15;
     font-weight: 900;
-    color: var(--main-dark);
-    margin: 0 0 38px;
+    color: #578f12;
+    margin: 0 0 22px;
 }
 
 .capture-id-bottom {
@@ -127,7 +111,7 @@ h1 {
     margin-left: 10px;
     font-size: 16px;
     font-weight: 700;
-    color: var(--date-text);
+    color: #72b91b;
     vertical-align: middle;
 }
 
@@ -153,8 +137,8 @@ h1 {
     height: 32px;
     border-radius: 50%;
     border: none;
-    background: var(--tint-100);
-    color: var(--main-dark);
+    background: #e6efdc;
+    color: #578f12;
     font-size: 13px;
     display: flex;
     align-items: center;
@@ -164,7 +148,7 @@ h1 {
 }
 
 .nav-btn:hover:not(:disabled) {
-    background: var(--tint-300);
+    background: #ddeacd;
     transform: none;
 }
 
@@ -184,8 +168,8 @@ table {
 }
 
 th {
-    background: var(--main);
-    color: #ffffff;
+    background: #b7e67d;
+    color: #1a1a1a;
     height: 68px;
     font-size: 23px;
     font-weight: 800;
@@ -202,7 +186,7 @@ th:first-child {
 }
 
 .clickable-header:hover {
-    background: var(--main-hover);
+    background: #9fde52;
 }
 
 td {
@@ -257,19 +241,15 @@ td:hover {
 }
 
 /* ===========================
-   공수 취향표
+   왼른 취향표
 =========================== */
 
 .lr-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(3, auto);
+    grid-template-rows: repeat(4, auto);
     grid-auto-flow: column;
     gap: 46px 50px;
-}
-
-.lr-grid.count-5 {
-    grid-template-rows: repeat(3, auto);
 }
 
 .lr-row {
@@ -286,12 +266,12 @@ td:hover {
     overflow: hidden;
     flex: 0 0 auto;
     cursor: pointer;
-    border: 4px solid var(--tint-100);
-    background: var(--tint-100);
+    border: 4px solid #e6efdc;
+    background: #e6efdc;
 }
 
 .lr-avatar img {
-    width: 100%;
+    width: 100%;혹시 모바일(화면의 가로가 세로보다 짧을 때)에서 공수 취향표를 봤을 때 저장하기 전 화면에서는 어떻게 보이는지 알 수 있어? 난 모바일에서는 화면이 피씨보다 작으니까 보기 힘들 것 같아서 멤버프로필 (사진+LR막대기+글자칸)이 멤버 순서대로 하나씩 밑으로 쭉 나열되면 좋을 것 같아.
     height: 100%;
     object-fit: cover;
     display: block;
@@ -331,7 +311,7 @@ td:hover {
 .lr-label-r {
     font-size: 17px;
     font-weight: 800;
-    color: var(--main-dark);
+    color: #578f12;
     flex: 0 0 auto;
 }
 
@@ -339,7 +319,7 @@ td:hover {
     flex: 1;
     display: flex;
     height: 32px;
-    border: 2px solid var(--tint-300);
+    border: 2px solid #cedfb9;
     border-radius: 8px;
     overflow: hidden;
 }
@@ -348,7 +328,7 @@ td:hover {
     flex: 1;
     height: 100%;
     background: #fff;
-    border-right: 1px solid var(--tint-200);
+    border-right: 1px solid #e6eedd;
     cursor: pointer;
     transition: .1s;
 }
@@ -358,11 +338,11 @@ td:hover {
 }
 
 .lr-cell:hover {
-    background: var(--tint-100);
+    background: #f0f8e8;
 }
 
 .lr-cell.filled {
-    background: var(--main);
+    background: #b7e67d;
 }
 
 .lr-text-wrap {
@@ -374,7 +354,7 @@ td:hover {
     min-height: 150px;
     resize: none;
     overflow: hidden;
-    border: 2px solid var(--tint-300);
+    border: 2px solid #cedfb9;
     border-radius: 10px;
     padding: 12px 14px 26px;
     font-size: 17px;
@@ -386,11 +366,11 @@ td:hover {
 }
 
 .lr-text:focus {
-    border-color: var(--main);
+    border-color: #578f12;
 }
 
 .lr-text::placeholder {
-    color: var(--muted);
+    color: #9cb181;
 }
 
 .lr-char-count {
@@ -398,7 +378,7 @@ td:hover {
     right: 12px;
     bottom: 8px;
     font-size: 12px;
-    color: var(--muted);
+    color: #9cb181;
     font-weight: 600;
     pointer-events: none;
 }
@@ -441,12 +421,12 @@ button:hover {
 }
 
 #saveBtn {
-    background: var(--main);
-    color: #ffffff;
+    background: #b7e67d;
+    color: #1a1a1a;
 }
 
 #saveBtn:hover {
-    background: var(--main-hover);
+    background: #9fde52;
 }
 
 #resetBtn {
@@ -487,7 +467,7 @@ button:hover {
 .date-toggle input {
     width: 17px;
     height: 17px;
-    accent-color: var(--main-dark);
+    accent-color: #578f12;
     cursor: pointer;
 }
 
@@ -657,7 +637,7 @@ button:hover {
 }
 
 .reset-colors-link:hover {
-    color: var(--main-hover);
+    color: #578f12;
 }
 
 .modal-extra {
@@ -683,7 +663,7 @@ button:hover {
 .hide-toggle input {
     width: 16px;
     height: 16px;
-    accent-color: var(--main-dark);
+    accent-color: #578f12;
     cursor: pointer;
 }
 
@@ -739,7 +719,7 @@ button:hover {
 }
 
 /* ===========================
-   반응형 (화면 표시 전용)
+   반응형
 =========================== */
 
 @media (max-width: 768px) {
@@ -765,12 +745,12 @@ button:hover {
 
     .logo {
         width: 130px;
-        margin: 0 auto 2px;
+        margin: 0 auto 20px;
     }
 
     h1 {
         font-size: 19px;
-        margin: 0 0 14px;
+        margin: 0 0 10px;
     }
 
     .chart-date {
@@ -787,11 +767,10 @@ button:hover {
         line-height: 1.5;
     }
 
-    /* 웨페스 취향표 - 화면 폭에 맞춰 표 전체가 줄어들어
+    /* 윗페스 취향표 - 화면 폭에 맞춰 표 전체가 줄어들어
        드래그 없이 한 화면에 다 보이도록 한다. */
     .table-wrap {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        overflow-x: visible;
     }
 
     table {
@@ -801,8 +780,8 @@ button:hover {
     }
 
     th {
-        height: 34px;
-        font-size: 10px;
+        height: 38px;
+        font-size: 11px;
         padding: 0 1px;
         word-break: keep-all;
     }
@@ -812,8 +791,8 @@ button:hover {
     }
 
     td {
-        height: 34px;
-        font-size: 10px;
+        height: 38px;
+        font-size: 11px;
         padding: 0 1px;
     }
 
@@ -966,139 +945,4 @@ button:hover {
     .lr-char-count {
         font-size: 11px;
     }
-}
-
-/* ===========================
-   이미지 저장 강제 데스크톱 레이아웃
-   ---------------------------
-   html2canvas에 windowWidth를 1100으로 넘겨도 일부 모바일 브라우저
-   (특히 iOS Safari)에서는 미디어쿼리가 실제 화면 폭 기준으로 다시
-   평가되어 표가 축소된 모바일 스타일 그대로 캡처되는 경우가 있다.
-   그래서 저장 버튼을 누르는 순간 body에 .force-desktop-capture
-   클래스를 붙이고, 아래 규칙들로 위 모바일 미디어쿼리 값을 전부
-   덮어써서 PC에서 저장하든 모바일에서 저장하든 항상 동일한 1100px
-   레이아웃/비율로, 표가 잘리지 않고 저장되도록 한다.
-   (이 클래스는 캡처 중에만 잠깐 붙었다가 저장이 끝나면 바로 사라지므로
-   화면에는 영향을 주지 않는다.)
-=========================== */
-
-.force-desktop-capture .wrapper {
-    padding: 32px 0 28px !important;
-}
-
-.force-desktop-capture .scale-wrap {
-    width: auto !important;
-    height: auto !important;
-    overflow: visible !important;
-}
-
-.force-desktop-capture .capture-area {
-    width: 1100px !important;
-    padding: 28px 50px 34px !important;
-    border-radius: 24px !important;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, .08) !important;
-}
-
-.force-desktop-capture .logo {
-    width: 300px !important;
-    margin: 0 auto 4px !important;
-}
-
-.force-desktop-capture h1 {
-    font-size: 34px !important;
-    margin: 0 0 38px !important;
-}
-
-.force-desktop-capture .chart-date {
-    font-size: 16px !important;
-    margin-left: 10px !important;
-}
-
-.force-desktop-capture .table-wrap {
-    overflow-x: visible !important;
-}
-
-.force-desktop-capture table {
-    width: 100% !important;
-    max-width: 980px !important;
-    table-layout: fixed !important;
-}
-
-.force-desktop-capture th {
-    height: 68px !important;
-    font-size: 23px !important;
-    padding: 0 !important;
-}
-
-.force-desktop-capture th:first-child {
-    width: 140px !important;
-}
-
-.force-desktop-capture td {
-    height: 68px !important;
-    font-size: 23px !important;
-    padding: 0 !important;
-}
-
-.force-desktop-capture .legend {
-    gap: 24px !important;
-    margin-top: 25px !important;
-}
-
-.force-desktop-capture .legend-item {
-    font-size: 22px !important;
-    gap: 9px !important;
-}
-
-.force-desktop-capture .color {
-    width: 27px !important;
-    height: 27px !important;
-    border-width: 2px !important;
-}
-
-.force-desktop-capture .capture-id-bottom {
-    font-size: 14px !important;
-    margin-top: 26px !important;
-}
-
-.force-desktop-capture .lr-grid {
-    grid-template-columns: 1fr 1fr !important;
-    grid-template-rows: repeat(3, auto) !important;
-    grid-auto-flow: column !important;
-    gap: 46px 50px !important;
-}
-
-.force-desktop-capture .lr-row {
-    gap: 22px !important;
-}
-
-.force-desktop-capture .lr-avatar {
-    width: 128px !important;
-    height: 128px !important;
-    border-width: 4px !important;
-}
-
-.force-desktop-capture .lr-bar-wrap {
-    gap: 10px !important;
-    margin-bottom: 12px !important;
-}
-
-.force-desktop-capture .lr-label-l,
-.force-desktop-capture .lr-label-r {
-    font-size: 17px !important;
-}
-
-.force-desktop-capture .lr-bar {
-    height: 32px !important;
-    border-radius: 8px !important;
-}
-
-.force-desktop-capture .lr-text {
-    min-height: 150px !important;
-    font-size: 17px !important;
-    padding: 12px 14px 26px !important;
-}
-
-.force-desktop-capture .lr-char-count {
-    font-size: 12px !important;
 }

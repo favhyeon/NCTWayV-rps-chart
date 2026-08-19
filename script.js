@@ -61,7 +61,7 @@ const options = [
     { name: "OTP",      color: "#f7cde0" },
     { name: "좋아함",   color: "#ffafaf" },
     { name: "호감",     color: "#fcee90" },
-    { name: "관심있음", color: "#baebbb" },
+    { name: "가능", color: "#baebbb" },
     { name: "관심없음", color: "#ffffff" },
     { name: "별로",     color: "#bfeefd" },
     { name: "지뢰",     color: "#999999" }
@@ -272,6 +272,53 @@ if (winwinToggle) {
         createLrGrid();
     });
 }
+
+/* ==========================================
+   서브 유닛 전환 (엔페스 / 칠페스 / 드페스 / 웨페스 / 잇페스)
+   엔페스: 127+드림+웨이션브이+위시 25명 전체를 모은 사이트.
+   드페스: NCT DREAM. 칠페스: NCT127. 웨페스: 이 사이트(NCT WayV). 잇페스: NCT WISH.
+   체크박스 5개는 라디오처럼 한 번에 하나만 선택되고, 다른 유닛을 선택하면
+   해당 그룹의 취향표 주소로 이동한다.
+========================================== */
+
+const CURRENT_UNIT = "we";
+
+const UNIT_URLS = {
+    enfes: "https://favhyeon.github.io/NCT-rps-chart/",
+    chil: "https://favhyeon.github.io/NCT127-rps-chart/",
+    deu: "https://favhyeon.github.io/NCTDREAM-rps-chart/",
+    we: "https://favhyeon.github.io/NCTWayV-rps-chart/",
+    it: "https://favhyeon.github.io/NCTWISH-RPS-CHART/"
+};
+
+const unitCheckboxes = document.querySelectorAll('input[name="unitSelect"]');
+
+unitCheckboxes.forEach(checkbox => {
+    if (checkbox.value === CURRENT_UNIT) {
+        checkbox.checked = true;
+    }
+
+    checkbox.addEventListener("change", () => {
+        if (!checkbox.checked) {
+            // 체크박스 하나는 항상 켜져 있어야 하므로 스스로 끄는 건 막는다.
+            checkbox.checked = true;
+            return;
+        }
+
+        // 라디오처럼: 이 체크박스만 켜고 나머지는 전부 끈다.
+        unitCheckboxes.forEach(other => {
+            if (other !== checkbox) other.checked = false;
+        });
+
+        const target = checkbox.value;
+        if (target === CURRENT_UNIT) return;
+
+        const url = UNIT_URLS[target];
+        if (url) {
+            window.location.href = url;
+        }
+    });
+});
 
 createTable();
 createLrGrid();
