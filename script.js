@@ -307,7 +307,7 @@ tabRps.addEventListener("click", () => switchTab("rps"));
 tabLr.addEventListener("click", () => switchTab("lr"));
 
 /* ==========================================
-   커플 취향표 - 표 생성
+   웨페스 취향표 - 표 생성
 ========================================== */
 
 function createTable() {
@@ -377,7 +377,7 @@ function createTable() {
 }
 
 /* ==========================================
-   커플 취향표 - 이전/이후 (실행 취소)
+   웨페스 취향표 - 이전/이후 (실행 취소)
 ========================================== */
 
 function pushHistory() {

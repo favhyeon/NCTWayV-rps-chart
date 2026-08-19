@@ -787,7 +787,7 @@ button:hover {
         line-height: 1.5;
     }
 
-    /* 커플 취향표 - 화면 폭에 맞춰 표 전체가 줄어들어
+    /* 웨페스 취향표 - 화면 폭에 맞춰 표 전체가 줄어들어
        드래그 없이 한 화면에 다 보이도록 한다. */
     .table-wrap {
         overflow-x: auto;
